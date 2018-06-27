@@ -1,4 +1,6 @@
-const { displayCountdown } = require("./views");
+const {
+  displayCountdown
+} = require("./views");
 
 const timer = seconds =>
   new Promise((resolve, reject) => {
@@ -6,10 +8,10 @@ const timer = seconds =>
     const then = now + seconds * 1000;
 
     displayCountdown(seconds - 1);
-    setInterval(() => {
+    let who = setInterval(() => {
       const secondsLeft = Math.floor((then - Date.now()) / 1000);
       if (secondsLeft < 0) {
-        clearInterval();
+        clearInterval(who);
         resolve();
       } else {
         displayCountdown(secondsLeft);
