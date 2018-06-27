@@ -1,22 +1,17 @@
-const { displayCountdown } = require("./views");
+const displayCountdown = require("./views");
 
-const timer = seconds =>
-  new Promise((resolve, reject) => {
-    const now = Date.now();
-    const then = now + seconds * 1000;
-
-    displayCountdown(seconds - 1);
-    setInterval(() => {
-      const secondsLeft = Math.floor((then - Date.now()) / 1000);
-      if (secondsLeft < 0) {
-        clearInterval();
-        resolve();
-      } else {
-        displayCountdown(secondsLeft);
+function timer(seconds) {
+  return new Promise(function(resolve, reject) {
+  let countdown = setInterval(function() {
+    seconds--
+      if (seconds == 0) {
+        reject(clearInterval(countdown))
+      } else {      
+        resolve(displayCountdown(seconds))
       }
-    }, 1000);
-  });
 
-module.exports = {
-  timer
+    }, 1000)
+  })
 };
+
+module.exports = timer;
