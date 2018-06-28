@@ -6,10 +6,10 @@ const timer = seconds =>
     const then = now + seconds * 1000;
 
     displayCountdown(seconds - 1);
-    setInterval(() => {
+    var del = setInterval(() => {
       const secondsLeft = Math.floor((then - Date.now()) / 1000);
       if (secondsLeft < 0) {
-        clearInterval();
+        clearInterval(del);
         resolve();
       } else {
         displayCountdown(secondsLeft);
